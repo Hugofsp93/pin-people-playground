@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# Verifica se o banco de dados está disponível
+until pg_isready -h db -p 5432 -q -U postgres; do
+  echo "Esperando pelo banco de dados..."
+  sleep 2
+done
+
+# Executa o comando recebido
+exec "$@"
